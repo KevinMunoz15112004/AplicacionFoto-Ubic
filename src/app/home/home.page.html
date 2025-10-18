@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Foto + Ubicación GPS</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!--Foto+ubi -->
+
+  <ion-button expand="block" (click)="tomarFotoGeo()">Tomar foto + ubicación</ion-button>
+
+  <ion-card *ngIf="fotoGeo()">
+    <ion-card-content>
+      <img [src]="fotoGeo()?.imageWebPath" *ngIf="fotoGeo()?.imageWebPath" />
+      <p><strong>Latitud:</strong> {{ fotoGeo()?.lat }}</p>
+      <p><strong>Longitud:</strong> {{ fotoGeo()?.lng }}</p>
+      <p><a [href]="fotoGeo()?.linkMapa" target="_blank">Ver en Google Maps</a></p>
+      <p>Archivo guardado: {{ fotoGeo()?.nombreArchivo }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!--solo ubi. para mostrar seguimiento en tiempo real -->
+  <hr>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Extra - Ubicación y rastreo</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <hr>
+
+  <p *ngIf="errorMsg()">{{ errorMsg() }}</p>
+
+  <ion-button expand="block" (click)="obtenerUbicacionActual()">Obtener ubicación actual</ion-button>
+
+  <ion-card *ngIf="latitude() !== null && longitude() !== null">
+    <ion-card-header>
+      <ion-card-title>Coordenadas actuales</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Latitud:</strong> {{ latitude() }}</p>
+      <p><strong>Longitud:</strong> {{ longitude() }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="block" (click)="iniciarSeguimiento()" [disabled]="watchId !== null">Iniciar
+    seguimiento</ion-button>
+  <ion-button expand="block" color="medium" (click)="detenerSeguimiento()" [disabled]="watchId === null">Detener
+    seguimiento</ion-button>
+</ion-content>
