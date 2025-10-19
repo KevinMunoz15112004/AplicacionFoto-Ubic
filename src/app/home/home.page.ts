@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { FotoGeoService } from '../services/foto-geo-service';
 import { LocationService } from '../services/location';
 import { FotoGeo } from '../services/foto-geo-service';
@@ -11,7 +11,7 @@ import { Camera } from '@capacitor/camera';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss']
 })
-export class HomePage implements OnInit, OnDestroy {
+export class HomePage implements OnInit {
   latitude = signal<number | null>(null);
   longitude = signal<number | null>(null);
   errorMsg = signal<string | null>(null);
@@ -29,37 +29,6 @@ export class HomePage implements OnInit, OnDestroy {
     await this.fgService.pedirPermisosCamara();
   }
 
-  async obtenerUbicacionActual() {
-    try {
-      const pos = await this.loc.getCurrentPosition();
-      this.latitude.set(pos.coords.latitude);
-      this.longitude.set(pos.coords.longitude);
-      this.errorMsg.set(null);
-    } catch (e: any) {
-      this.errorMsg.set(e?.message ?? 'Error al obtener la ubicación actual');
-    }
-  }
-
-  async iniciarSeguimiento() {
-    try {
-      this.watchId = await this.loc.watchPosition((pos) => {
-        this.latitude.set(pos.coords.latitude);
-        this.longitude.set(pos.coords.longitude);
-      }, (err) => {
-        this.errorMsg.set(err?.message ?? 'Error en seguimiento de ubicación');
-      });
-    } catch (e: any) {
-      this.errorMsg.set(e?.message ?? 'No se pudo iniciar el seguimiento');
-    }
-  }
-
-  async detenerSeguimiento() {
-    if (this.watchId) {
-      await this.loc.clearWatch(this.watchId);
-      this.watchId = null;
-    }
-  }
-
   async tomarFotoGeo() {
     try {
       const result = await this.fgService.tomarFotoConUbi();
@@ -70,9 +39,5 @@ export class HomePage implements OnInit, OnDestroy {
       this.errorMsg.set('Error al tomar foto con ubicación');
       console.error(err);
     }
-  }
-
-  ngOnDestroy() {
-    if (this.watchId) this.loc.clearWatch(this.watchId);
   }
 }

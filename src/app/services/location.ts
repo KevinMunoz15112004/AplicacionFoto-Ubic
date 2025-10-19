@@ -9,7 +9,6 @@ export class LocationService {
      if (Capacitor.getPlatform() === 'web') {
       return;
     }
-    // Pide permisos si no están concedidos
     const perm = await Geolocation.checkPermissions();
     if (perm.location === 'granted' || perm.coarseLocation === 'granted') return perm;
     return Geolocation.requestPermissions();
@@ -28,11 +27,6 @@ export class LocationService {
         else if (err && onErr) onErr(err);
       }
     );
-    // Capacitor v6 devuelve string; en v5 podía ser string|null
     return id as unknown as string;
-  }
-
-  async clearWatch(id: string): Promise<void> {
-    await Geolocation.clearWatch({ id });
   }
 }   

@@ -41,7 +41,7 @@ export class FotoGeoService {
 
     const linkMapa = `https://www.google.com/maps/@${lat},${lng}`;
     const nombreArchivo = new Date().getTime() + '.txt';
-    const contenido = `lat: ${lat}\nlng: ${lng}\nmapLink: ${linkMapa}\nphotoPath: ${webPath}`;
+    const contenido = `lat: ${lat}\nlng: ${lng}\nEnlace al Mapa: ${linkMapa}`;
 
     await Filesystem.writeFile({
       path: `Download/${nombreArchivo}`,
