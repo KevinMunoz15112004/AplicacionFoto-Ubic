@@ -38,6 +38,8 @@ Luego en <code>home.page.ts</code> se piden los permisos inmediatamente al inici
 
 Para visualizar su contenido ir a: [home.page.ts](/src/app/home/home.page.ts)
 
+Finalmente para ver la página HTML ir a: [home.page.html](/src/app/home/home.page.html)
+
 ### Permisos necesarios
 
 Es importante poner los respectivos permisos para la aplicación, tanto para acceder a la cámara como a la ubicación. Esta información se la debe poner en el AndroidManifest, para verificar los permisos necesarios ir a:
