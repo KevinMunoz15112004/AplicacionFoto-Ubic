@@ -6,6 +6,10 @@ Nombre: Kevin Muñoz
 
 Esta aplicación implementa funcionalidades de cámara y geolocalización con Capacitor, donde al tomar la foto se dará la ubicación en la que fue tomada con un enlace a Google Maps en indicará latitud y longitud
 
+## Para probar el APK
+
+[APK APP FOTO GEO](android/app/build/outputs/apk/debug)
+
 ## Instalación de dependencias
 
 Para esta aplicación fue necesario instalar lo siguiente: 
